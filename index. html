@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHMED OSAMA - 20230259</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+        
+        .card {
+            width: 400px;
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .front {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            transform: rotateY(0deg);
+        }
+        
+        .back {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            transform: rotateY(180deg);
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 50px;
+            font-weight: bold;
+            border: 3px solid white;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .code {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-face front">
+            <div class="avatar">AO</div>
+            <h1>AHMED OSAMA</h1>
+            <p>مرحباً بك في صفحتي التعريفية</p>
+            <p>انقر لقلب البطاقة</p>
+        </div>
+        <div class="card-face back">
+            <h1>معلومات الطالب</h1>
+            <p>الاسم: AHMED OSAMA</p>
+            <p>الكود الجامعي:</p>
+            <div class="code">20230259</div>
+        </div>
+    </div>
+    
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <script>
+        const floatingElements = document.getElementById('floatingElements');
+        
+        for (let i = 0; i < 20; i++) {
+            const element = document.createElement('div');
+            element.classList.add('floating-element');
+            
+            const size = Math.random() * 50 + 10;
+            const posX = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            element.style.left = `${posX}%`;
+            element.style.bottom = `-${size}px`;
+            element.style.animationDelay = `${delay}s`;
+            element.style.animationDuration = `${duration}s`;
+            
+            floatingElements.appendChild(element);
+        }
+        const card = document.querySelector('.card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+        document.addEventListener('mouseleave',
